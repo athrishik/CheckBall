@@ -2,8 +2,9 @@ services:
   - type: web
     name: checkball
     env: python
+    runtime: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn checkball:app"
+    startCommand: "gunicorn checkball:app --bind 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0
+        value: 3.11.0
