@@ -1,10 +1,10 @@
 services:
   - type: web
     name: checkball
-    env: python
     runtime: python
+    plan: free
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn checkball:app --bind 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: 3.11.9
