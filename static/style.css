@@ -1326,10 +1326,83 @@ select:-internal-autofill-selected {
     }
 }
 
+/* Tablet devices */
+@media (max-width: 900px) and (min-width: 769px) {
+    .stat-comparison-row {
+        gap: 0.75rem;
+        padding: 0.875rem;
+    }
+
+    .stat-value-left,
+    .stat-value-right {
+        font-size: 1rem;
+    }
+
+    .stat-name-center {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 0.75rem;
+    }
+
+    .prediction-modal-content,
+    .game-modal-content {
+        padding: 1.5rem 0.75rem;
+        margin: 1rem;
+    }
+
+    .predicted-score-value {
+        font-size: 2.5rem;
+    }
+
+    .logo h1 {
+        font-size: 1.6rem;
+        letter-spacing: 0.05em;
+    }
+
+    .widget-actions button {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .team-stats-grid {
+        padding: 0.75rem;
+    }
+
+    .stat-comparison-row {
+        padding: 0.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-value-left,
+    .stat-value-right {
+        font-size: 1.3rem;
+    }
+
+    .stat-name-center {
+        font-size: 0.8rem;
+    }
+
+    .leaders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .leader-card {
+        padding: 0.875rem;
+    }
+}
+
 /* Extra small devices */
 @media (max-width: 400px) {
     .logo h1 {
         font-size: 1.5rem;
+        letter-spacing: 0.03em;
+        text-shadow: 0 0 20px var(--primary-glow);
     }
 
     .widget {
@@ -1343,6 +1416,40 @@ select:-internal-autofill-selected {
     .team-name,
     .opponent-name {
         font-size: 0.85rem;
+    }
+
+    .container {
+        padding: 0.5rem;
+    }
+
+    .team-stats-grid {
+        padding: 0.5rem;
+    }
+
+    .stat-comparison-row {
+        padding: 0.5rem;
+        gap: 0.4rem;
+    }
+
+    .stat-value-left,
+    .stat-value-right {
+        font-size: 1.2rem;
+    }
+
+    .stat-name-center {
+        font-size: 0.75rem;
+    }
+
+    .prediction-modal-close,
+    .game-modal-close {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 36px;
+        height: 36px;
+    }
+
+    .predicted-score-value {
+        font-size: 2rem;
     }
 }
 
@@ -1494,6 +1601,9 @@ select:-internal-autofill-selected {
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.05em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .stats-grid-header {
@@ -1623,6 +1733,9 @@ select:-internal-autofill-selected {
     color: #fff;
     margin-bottom: 0.25rem;
     line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .team-abbreviation {
@@ -1699,6 +1812,10 @@ select:-internal-autofill-selected {
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.5);
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
 }
 
 /* ============================================
@@ -1787,6 +1904,9 @@ select:-internal-autofill-selected {
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
     flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .leader-value {
@@ -1828,6 +1948,7 @@ select:-internal-autofill-selected {
     .team-score-card {
         width: 100%;
         justify-content: space-between;
+        flex: 1 1 auto;
     }
 
     .game-status-center {
@@ -1865,5 +1986,54 @@ select:-internal-autofill-selected {
 
     .game-modal-content {
         padding: 2rem 1.25rem;
+    }
+
+    /* Team statistics card fixes for mobile */
+    .stat-comparison-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .stats-grid-header {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .stat-value-left,
+    .stat-value-right {
+        font-size: 1.5rem;
+        text-align: left;
+    }
+
+    .stat-name-center {
+        font-size: 0.85rem;
+        text-align: left;
+        order: -1;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .team-stats-grid {
+        padding: 1rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    body::before {
+        animation: none !important;
     }
 }
