@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: checkball
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn checkball:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
