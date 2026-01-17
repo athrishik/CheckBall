@@ -1326,7 +1326,7 @@ select:-internal-autofill-selected {
     }
 }
 
-/* Tablet devices */
+/* Tablet and larger mobile devices */
 @media (max-width: 900px) and (min-width: 769px) {
     .stat-comparison-row {
         gap: 0.75rem;
@@ -1340,6 +1340,27 @@ select:-internal-autofill-selected {
 
     .stat-name-center {
         font-size: 0.9rem;
+    }
+
+    .team-score-card {
+        flex: 0 1 300px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    .game-matchup-scores {
+        flex-wrap: wrap;
+    }
+
+    .team-score-card {
+        min-width: 0;
+        flex: 1 1 calc(50% - 0.75rem);
+        max-width: 320px;
+    }
+
+    .game-status-center {
+        flex: 1 1 100%;
     }
 }
 
@@ -1990,26 +2011,45 @@ select:-internal-autofill-selected {
 
     /* Team statistics card fixes for mobile */
     .stat-comparison-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
         padding: 0.75rem;
     }
 
     .stats-grid-header {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        padding: 0.75rem;
+        display: none;
     }
 
     .stat-value-left,
     .stat-value-right {
-        font-size: 1.5rem;
-        text-align: left;
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .stat-value-left::before {
+        content: attr(data-team);
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 0.25rem;
+        font-family: 'Rajdhani', sans-serif;
+    }
+
+    .stat-value-right::before {
+        content: attr(data-team);
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 0.25rem;
+        font-family: 'Rajdhani', sans-serif;
     }
 
     .stat-name-center {
         font-size: 0.85rem;
-        text-align: left;
+        text-align: center;
+        grid-column: 1 / -1;
         order: -1;
         margin-bottom: 0.5rem;
         padding-bottom: 0.5rem;
@@ -2018,6 +2058,25 @@ select:-internal-autofill-selected {
 
     .team-stats-grid {
         padding: 1rem;
+    }
+
+    /* Error message styling */
+    .error-message {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem !important;
+        margin: 1rem 0;
+    }
+
+    .error-message ul {
+        padding-left: 1.25rem !important;
+        margin: 1rem 0 !important;
+    }
+
+    .error-message li {
+        margin-bottom: 0.5rem;
+        color: rgba(255, 255, 255, 0.8);
     }
 }
 

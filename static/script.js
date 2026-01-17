@@ -968,9 +968,9 @@ function generateTeamStatsComparison(boxScore) {
                 
                 ${commonStatNames.map(statName => `
                     <div class="stat-comparison-row">
-                        <div class="stat-value-left">${team1StatMap.get(statName) || '0'}</div>
                         <div class="stat-name-center">${statName}</div>
-                        <div class="stat-value-right">${team2StatMap.get(statName) || '0'}</div>
+                        <div class="stat-value-left" data-team="${team1.team_name}">${team1StatMap.get(statName) || '0'}</div>
+                        <div class="stat-value-right" data-team="${team2.team_name}">${team2StatMap.get(statName) || '0'}</div>
                     </div>
                 `).join('')}
             </div>
