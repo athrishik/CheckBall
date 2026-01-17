@@ -1354,12 +1354,18 @@ class GamePredictor:
                 except:
                     continue
 
+            if not games:
+                logger.warning(f"No recent games found for {team_name} in {sport}")
+                return None
+
             stats = self._aggregate_stats(games[:num_games], sport)
-            self.cache[cache_key] = stats
+            if stats:
+                self.cache[cache_key] = stats
+                logger.info(f"Successfully gathered {stats['games_played']} games for {team_name}")
             return stats
 
         except Exception as e:
-            logger.error(f"Error getting team stats: {e}")
+            logger.error(f"Error getting team stats for {team_name} in {sport}: {e}")
             return None
 
     def _get_sport_base_url(self, sport):
@@ -1754,22 +1760,33 @@ def get_upcoming_games(sport, team):
                                 location = 'team1_home' if team_data.get('homeAway') == 'home' else 'team2_home'
                                 prediction = game_predictor.predict_game_outcome(sport, team, opponent_name, location)
 
-                                upcoming_games.append({
-                                    'date': game.get('date'),
-                                    'opponent': opponent_name,
-                                    'home_away': team_data.get('homeAway', 'away'),
-                                    'venue': game.get('competitions', [{}])[0].get('venue', {}).get('fullName', 'TBD'),
-                                    'prediction': prediction
-                                })
+                                # Only add if prediction is valid (no error)
+                                if prediction and 'error' not in prediction:
+                                    upcoming_games.append({
+                                        'date': game.get('date'),
+                                        'opponent': opponent_name,
+                                        'home_away': team_data.get('homeAway', 'away'),
+                                        'venue': game.get('competitions', [{}])[0].get('venue', {}).get('fullName', 'TBD'),
+                                        'prediction': prediction
+                                    })
+                                else:
+                                    logger.warning(f"Failed to predict {team} vs {opponent_name}: {prediction.get('error', 'Unknown error') if prediction else 'No prediction data'}")
                                 break
-            except:
+            except Exception as day_error:
+                logger.debug(f"Error checking games for date {date_str}: {day_error}")
                 continue
+
+        if not upcoming_games:
+            logger.warning(f"No upcoming games found with valid predictions for {team}")
+            return jsonify({
+                'error': 'No upcoming games found. Team may not have games scheduled in the next 7 days, or insufficient data is available for prediction.'
+            }), 404
 
         return jsonify({'upcoming_games': upcoming_games[:5]})  # Return next 5 games
 
     except Exception as e:
         logger.error(f"Error getting upcoming games: {e}")
-        return jsonify({'error': 'Service temporarily unavailable'}), 503
+        return jsonify({'error': f'Service temporarily unavailable: {str(e)}'}), 503
 
 if __name__ == '__main__':
     import os
